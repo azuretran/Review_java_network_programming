@@ -73,11 +73,13 @@ public class Client_UDP {
                 byte[] data = Integer.toString(number).getBytes(); // Đổi chuỗi ra mảng bytes
                DatagramPacket dp = new DatagramPacket(data, data.length, server, SERVER_PORT);
                 ds.send(dp); // Send gói tin sang Echo Server
+                
                 byte[] data1 = Integer.toString(base).getBytes(); // Đổi chuỗi ra mảng bytes
  
                 // Tạo gói tin gởi
                 DatagramPacket dp1 = new DatagramPacket(data1, data1.length, server, SERVER_PORT);
                 ds.send(dp1); // Send gói tin sang Echo Server
+                
                 // Gói tin nhận
                 DatagramPacket incoming = new DatagramPacket(BUFFER, BUFFER.length);
                 ds.receive(incoming); // Chờ nhận dữ liệu từ EchoServer gởi về
