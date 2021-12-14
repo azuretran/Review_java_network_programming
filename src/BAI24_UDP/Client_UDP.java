@@ -27,9 +27,10 @@ public class Client_UDP {
               DatagramPacket dp = new DatagramPacket(data, data.length, server, SERVER_PORT);
               return  dp;
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         DatagramSocket ds = null;
-        try {
+        try 
+        {
             ds = new DatagramSocket(); // Tạo DatagramSocket
             System.out.println("Client started ");
  
@@ -52,13 +53,59 @@ public class Client_UDP {
             
                DatagramPacket dp1 = sendata(password, server);
                 ds.send(dp1); // Send gói tin sang Echo Server
-                // Gói tin nhận
+                
+                // Gói tin nhận login thành công
                 DatagramPacket incoming = new DatagramPacket(BUFFER, BUFFER.length);
                 ds.receive(incoming); // Chờ nhận dữ liệu từ EchoServer gởi về
                 String result_back=new String(incoming.getData(), 0, incoming.getLength());
                 // Đổi dữ liệu nhận được dạng mảng bytes ra chuỗi và in ra màn hình
+                   // Gói tin nhận số kết quả
+                DatagramPacket incoming7 = new DatagramPacket(BUFFER, BUFFER.length);
+                ds.receive(incoming7); // Chờ nhận dữ liệu từ EchoServer gởi về
+                String result_back7=new String(incoming7.getData(), 0, incoming7.getLength());
+                   int i;
+                   String s="";
+                    for(i=0;i<Integer.parseInt(result_back7);i++){
+                           // Gói tin nhận dữ liệu mã sinh viên
+                DatagramPacket incoming1 = new DatagramPacket(BUFFER, BUFFER.length);
+                ds.receive(incoming1); // Chờ nhận dữ liệu từ EchoServer gởi về
+                String result_back1=new String(incoming1.getData(), 0, incoming1.getLength());
+                    // Gói tin nhận dữ liệu họ lót
+                DatagramPacket incoming2 = new DatagramPacket(BUFFER, BUFFER.length);
+                ds.receive(incoming2); // Chờ nhận dữ liệu từ EchoServer gởi về
+                String result_back2=new String(incoming2.getData(), 0, incoming2.getLength());
+                    // Gói tin nhận dữ liệu tên
+                DatagramPacket incoming3 = new DatagramPacket(BUFFER, BUFFER.length);
+                ds.receive(incoming3); // Chờ nhận dữ liệu từ EchoServer gởi về
+                String result_back3=new String(incoming3.getData(), 0, incoming3.getLength());
+                    // Gói tin nhận dữ liệu mã lớp
+                DatagramPacket incoming4 = new DatagramPacket(BUFFER, BUFFER.length);
+                ds.receive(incoming4); // Chờ nhận dữ liệu từ EchoServer gởi về
+                String result_back4=new String(incoming4.getData(), 0, incoming4.getLength());
+                    // Gói tin nhận dữ liệu điểm trung bình
+                DatagramPacket incoming5 = new DatagramPacket(BUFFER, BUFFER.length);
+                ds.receive(incoming5); // Chờ nhận dữ liệu từ EchoServer gởi về
+                String result_back5=new String(incoming5.getData(), 0, incoming5.getLength());
+                
+                    // Gói tin nhận dữ liệu kết quả
+                DatagramPacket incoming6 = new DatagramPacket(BUFFER, BUFFER.length);
+                ds.receive(incoming6); // Chờ nhận dữ liệu từ EchoServer gởi về
+                String result_back6=new String(incoming6.getData(), 0, incoming6.getLength());
+                s+=result_back1+"\t"+result_back2+"\t"+result_back3+"\t"+result_back4+"\t"+result_back5+"\t"+result_back6+"\n";
+                    }
+              
+                
+                
+                
+                
+                
                 if(Integer.parseInt(result_back)==-1){
                     System.out.println("login successfully");
+                    
+                         System.out.println("Mã SV"+"\t"+"Họ Lót"+"\t"+"Tên"+"\t"+"Mã Lớp"+"\t"+"\t"+"Điểm TB"+"\t"+"Kết Quả");
+                                        System.out.println(s);
+                  
+                                       
                 }
                 else{
                     System.out.println("fail login please try again , may be wrong username or password");
